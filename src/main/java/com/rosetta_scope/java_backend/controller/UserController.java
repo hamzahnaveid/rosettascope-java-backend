@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rosetta_scope.java_backend.dao.UserDao;
+import com.rosetta_scope.java_backend.entity.Score;
 import com.rosetta_scope.java_backend.entity.User;
 
 @RestController
@@ -72,6 +73,12 @@ public class UserController {
 	@PostMapping("/user-save")
 	@ResponseBody
 	public User saveUser(@RequestBody User user) {
+		if (user.getScores() != null) {
+			for (Score score : user.getScores()) {
+				score.setUser(user);
+			}
+		}
+		
 		userDao.save(user);
 		// Client-side throws error in Volley if the response does not return a value, even if it is successful
 		return user;

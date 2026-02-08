@@ -1,9 +1,12 @@
 package com.rosetta_scope.java_backend.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Score {
@@ -15,6 +18,10 @@ public class Score {
 	private String word;
 	private String language;
 	private int score;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "email")
+	private User user;
 	
 	public Score() {
 		
@@ -50,6 +57,14 @@ public class Score {
 
 	public void setScore(int score) {
 		this.score = score;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

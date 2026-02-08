@@ -28,7 +28,12 @@ public class User {
 	private int wordsEncountered;
 	private int wordsMastered;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(
+			fetch = FetchType.LAZY,
+			cascade = CascadeType.ALL,
+			mappedBy = "user",
+			orphanRemoval = true
+			)
 	private List<Score> scores;
 	
 	@ElementCollection
@@ -110,6 +115,7 @@ public class User {
 	}
 	
 	public void addScore(Score score) {
+		score.setUser(this);
 		this.scores.add(score);
 	}
 
