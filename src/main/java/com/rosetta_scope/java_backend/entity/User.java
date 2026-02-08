@@ -1,16 +1,23 @@
 package com.rosetta_scope.java_backend.entity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.MapKeyColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 public class User {
-	
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private int id;
 	
 	@Id
 	private String email;
@@ -20,6 +27,15 @@ public class User {
 	private String targetLanguage;
 	private int wordsEncountered;
 	private int wordsMastered;
+	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<Score> scores;
+	
+	@ElementCollection
+	@MapKeyColumn(name="word")
+	@Column(name="confidence")
+	@CollectionTable(name="user_confidence_scores", joinColumns= @JoinColumn(name="email"))
+	private Map<String, Integer> confidenceScores;
 	
 	public User() {
 		
@@ -33,15 +49,9 @@ public class User {
 		this.targetLanguage = targetLanguage;
 		this.wordsEncountered = wordsEncountered;
 		this.wordsMastered = wordsMastered;
+		this.scores = new ArrayList<>();
+		this.confidenceScores = new HashMap<String, Integer>();
 	}
-
-//	public int getId() {
-//		return id;
-//	}
-//
-//	public void setId(int id) {
-//		this.id = id;
-//	}
 
 	public String getEmail() {
 		return email;
@@ -89,6 +99,26 @@ public class User {
 
 	public void setWordsMastered(int wordsMastered) {
 		this.wordsMastered = wordsMastered;
+	}
+
+	public List<Score> getScores() {
+		return scores;
+	}
+
+	public void setScores(List<Score> scores) {
+		this.scores = scores;
+	}
+	
+	public void addScore(Score score) {
+		this.scores.add(score);
+	}
+
+	public Map<String, Integer> getConfidenceScores() {
+		return confidenceScores;
+	}
+
+	public void setConfidenceScores(Map<String, Integer> confidenceScores) {
+		this.confidenceScores = confidenceScores;
 	}
 
 }
