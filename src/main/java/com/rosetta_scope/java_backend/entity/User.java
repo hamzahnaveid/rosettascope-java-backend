@@ -40,7 +40,7 @@ public class User {
 	@MapKeyColumn(name="word")
 	@Column(name="confidence")
 	@CollectionTable(name="user_confidence_scores", joinColumns= @JoinColumn(name="email"))
-	private Map<String, Integer> confidenceScores;
+	private Map<String, Double> confidenceScores;
 	
 	public User() {
 		
@@ -55,7 +55,7 @@ public class User {
 		this.wordsEncountered = wordsEncountered;
 		this.wordsMastered = wordsMastered;
 		this.scores = new ArrayList<>();
-		this.confidenceScores = new HashMap<String, Integer>();
+		this.confidenceScores = new HashMap<String, Double>();
 	}
 
 	public String getEmail() {
@@ -119,11 +119,11 @@ public class User {
 		this.scores.add(score);
 	}
 
-	public Map<String, Integer> getConfidenceScores() {
+	public Map<String, Double> getConfidenceScores() {
 		return confidenceScores;
 	}
 
-	public void setConfidenceScores(Map<String, Integer> confidenceScores) {
+	public void setConfidenceScores(Map<String, Double> confidenceScores) {
 		this.confidenceScores = confidenceScores;
 	}
 
