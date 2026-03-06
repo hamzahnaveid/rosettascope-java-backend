@@ -19,7 +19,7 @@ class JavaBackendApplicationTests {
 
 	@Test
 	void addUserTest() {
-		User user = new User("test@gmail.com", "1", "Beginner", "es-EN", 21, 7);
+		User user = new User("test@gmail.com", "1", "es-EN", 21, 7);
 		userDao.save(user);
 	}
 	

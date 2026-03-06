@@ -23,7 +23,6 @@ public class User {
 	private String email;
 	
 	private String password;
-	private String proficiency;
 	private String targetLanguage;
 	private int wordsEncountered;
 	private int wordsMastered;
@@ -31,8 +30,7 @@ public class User {
 	@OneToMany(
 			fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL,
-			mappedBy = "user",
-			orphanRemoval = true
+			mappedBy = "user"
 			)
 	private List<Score> scores;
 	
@@ -46,11 +44,10 @@ public class User {
 		
 	}
 
-	public User(String email, String password, String proficiency, String targetLanguage, int wordsEncountered,
+	public User(String email, String password, String targetLanguage, int wordsEncountered,
 			int wordsMastered) {
 		this.email = email;
 		this.password = password;
-		this.proficiency = proficiency;
 		this.targetLanguage = targetLanguage;
 		this.wordsEncountered = wordsEncountered;
 		this.wordsMastered = wordsMastered;
@@ -72,14 +69,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getProficiency() {
-		return proficiency;
-	}
-
-	public void setProficiency(String proficiency) {
-		this.proficiency = proficiency;
 	}
 
 	public String getTargetLanguage() {

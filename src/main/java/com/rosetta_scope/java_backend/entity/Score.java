@@ -18,6 +18,8 @@ public class Score {
 	private String word;
 	private String language;
 	private int score;
+	private String engWord;
+	private long timestamp;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "email")
@@ -27,11 +29,13 @@ public class Score {
 		
 	}
 
-	public Score(String word, String language, int score) {
+	public Score(String word, String language, int score, String engWord, long timestamp) {
 		super();
 		this.word = word;
 		this.language = language;
 		this.score = score;
+		this.engWord = engWord;
+		this.timestamp = timestamp;
 	}
 
 	public String getWord() {
@@ -57,6 +61,22 @@ public class Score {
 
 	public void setScore(int score) {
 		this.score = score;
+	}
+
+	public String getEngWord() {
+		return engWord;
+	}
+
+	public void setEngWord(String engWord) {
+		this.engWord = engWord;
+	}
+
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
 	}
 
 	public User getUser() {
