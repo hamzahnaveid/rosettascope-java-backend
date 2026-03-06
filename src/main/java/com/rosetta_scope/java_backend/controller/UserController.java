@@ -64,7 +64,12 @@ public class UserController {
 	@GetMapping("/user/{email}")
 	@ResponseBody
 	public User getUserByEmail(@PathVariable String email) {
-		return userDao.findByEmail(email).get();
+		User user = userDao.findByEmail(email).get();
+		
+		// Force loading of scores
+		user.getScores().size();
+		
+		return user;
 	}
 	
 	@GetMapping("/user-exists/{email}")

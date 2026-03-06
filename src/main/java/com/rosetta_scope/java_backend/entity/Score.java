@@ -1,5 +1,7 @@
 package com.rosetta_scope.java_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +25,7 @@ public class Score {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "email")
+	@JsonIgnore
 	private User user;
 	
 	public Score() {
