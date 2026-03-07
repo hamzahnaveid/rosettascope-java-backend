@@ -8,6 +8,7 @@ public class ScoreRequest {
     private int score;
     private String engWord;
     private long timestamp;
+    private String feedback;
     private double confidenceScore;
     
     public ScoreRequest() {
@@ -60,6 +61,14 @@ public class ScoreRequest {
 
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public String getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
 	}
 
 	public double getConfidenceScore() {

@@ -2,6 +2,7 @@ package com.rosetta_scope.java_backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -22,6 +23,8 @@ public class Score {
 	private int score;
 	private String engWord;
 	private long timestamp;
+	@Column (columnDefinition = "TEXT")
+	private String feedback;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "email")
@@ -32,13 +35,14 @@ public class Score {
 		
 	}
 
-	public Score(String word, String language, int score, String engWord, long timestamp) {
+	public Score(String word, String language, int score, String engWord, long timestamp, String feedback) {
 		super();
 		this.word = word;
 		this.language = language;
 		this.score = score;
 		this.engWord = engWord;
 		this.timestamp = timestamp;
+		this.feedback = feedback;
 	}
 
 	public String getWord() {
@@ -80,6 +84,14 @@ public class Score {
 
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public String getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
 	}
 
 	public User getUser() {

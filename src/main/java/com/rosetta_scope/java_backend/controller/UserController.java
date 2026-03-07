@@ -111,7 +111,8 @@ public class UserController {
 				request.getLanguage(),
 				request.getScore(),
 				request.getEngWord(),
-				request.getTimestamp()
+				request.getTimestamp(),
+				request.getFeedback()
 		);
 		
 		score.setUser(user);
