@@ -1,82 +1,322 @@
 {
-"0":"person",
-"1":"bicycle",
-"2":"car",
-"3":"motorcycle",
-"4":"airplane",
-"5":"bus",
-"6":"train",
-"7":"truck",
-"8":"boat",
-"9":"traffic light",
-"10":"fire hydrant",
-"11":"stop sign",
-"12":"parking meter",
-"13":"bench",
-"14":"bird",
-"15":"cat",
-"16":"dog",
-"17":"horse",
-"18":"sheep",
-"19":"cow",
-"20":"elephant",
-"21":"bear",
-"22":"zebra",
-"23":"giraffe",
-"24":"backpack",
-"25":"umbrella",
-"26":"handbag",
-"27":"tie",
-"28":"suitcase",
-"29":"frisbee",
-"30":"skis",
-"31":"snowboard",
-"32":"sports ball",
-"33":"kite",
-"34":"baseball bat",
-"35":"baseball glove",
-"36":"skateboard",
-"37":"surfboard",
-"38":"tennis racket",
-"39":"bottle",
-"40":"wine glass",
-"41":"cup",
-"42":"fork",
-"43":"knife",
-"44":"spoon",
-"45":"bowl",
-"46":"banana",
-"47":"apple",
-"48":"sandwich",
-"49":"orange",
-"50":"broccoli",
-"51":"carrot",
-"52":"hot dog",
-"53":"pizza",
-"54":"donut",
-"55":"cake",
-"56":"chair",
-"57":"couch",
-"58":"potted plant",
-"59":"bed",
-"60":"dining table",
-"61":"toilet",
-"62":"tv",
-"63":"laptop",
-"64":"mouse",
-"65":"remote",
-"66":"keyboard",
-"67":"cell phone",
-"68":"microwave",
-"69":"oven",
-"70":"toaster",
-"71":"sink",
-"72":"refrigerator",
-"73":"book",
-"74":"clock",
-"75":"vase",
-"76":"scissors",
-"77":"teddy bear",
-"78":"hair drier",
-"79":"toothbrush"
+"0":{
+	"word": "person",
+	"category": "all"
+},
+"1":{
+	"word": "bicycle",
+	"category": "outside"
+},
+"2":{
+	"word": "car",
+	"category": "outside"
+},
+"3":{
+	"word": "motorcycle",
+	"category": "outside"
+},
+"4":{
+	"word": "airplane",
+	"category": "outside"
+},
+"5":{
+	"word": "bus",
+	"category": "outside"
+},
+"6":{
+	"word": "train",
+	"category": "outside"
+},
+"7":{
+	"word": "truck",
+	"category": "outside"
+},
+"8":{
+	"word": "boat",
+	"category": "outside"
+},
+"9":{
+	"word": "traffic light",
+	"category": "outside"
+},
+"10":{
+	"word": "fire hydrant",
+	"category": "outside"
+},
+"11":{
+	"word": "stop sign",
+	"category": "outside"
+},
+"12":{
+	"word": "parking meter",
+	"category": "outside"
+},
+"13":{
+	"word": "bench",
+	"category": "outside"
+},
+"14":{
+	"word": "bird",
+	"category": "outside"
+},
+"15":{
+	"word": "cat",
+	"category": "outside"
+},
+"16":{
+	"word": "dog",
+	"category": "outside"
+},
+"17":{
+	"word": "horse",
+	"category": "outside"
+},
+"18":{
+	"word": "sheep",
+	"category": "outside"
+},
+"19":{
+	"word": "cow",
+	"category": "outside"
+},
+"20":{
+	"word": "elephant",
+	"category": "outside"
+},
+"21":{
+	"word": "bear",
+	"category": "outside"
+},
+"22":{
+	"word": "zebra",
+	"category": "outside"
+},
+"23":{
+	"word": "giraffe",
+	"category": "outside"
+},
+"24":{
+	"word": "backpack",
+	"category": "inside"
+},
+"25":{
+	"word": "umbrella",
+	"category": "all"
+},
+"26":{
+	"word": "handbag",
+	"category": "inside"
+},
+"27":{
+	"word": "tie",
+	"category": "inside"
+},
+"28":{
+	"word": "suitcase",
+	"category": "inside"
+},
+"29":{
+	"word": "frisbee",
+	"category": "outside"
+},
+"30":{
+	"word": "skis",
+	"category": "outside"
+},
+"31":{
+	"word": "snowboard",
+	"category": "outside"
+},
+"32":{
+	"word": "sports ball",
+	"category": "outside"
+},
+"33":{
+	"word": "kite",
+	"category": "outside"
+},
+"34":{
+	"word": "baseball bat",
+	"category": "outside"
+},
+"35":{
+	"word": "baseball glove",
+	"category": "outside"
+},
+"36":{
+	"word": "skateboard",
+	"category": "outside"
+},
+"37":{
+	"word": "surfboard",
+	"category": "outside"
+},
+"38":{
+	"word": "tennis racket",
+	"category": "outside"
+},
+"39":{
+	"word": "bottle",
+	"category": "all"
+},
+"40":{
+	"word": "wine glass",
+	"category": "inside"
+},
+"41":{
+	"word": "cup",
+	"category": "inside"
+},
+"42":{
+	"word": "fork",
+	"category": "inside"
+},
+"43":{
+	"word": "knife",
+	"category": "inside"
+},
+"44":{
+	"word": "spoon",
+	"category": "inside"
+},
+"45":{
+	"word": "bowl",
+	"category": "inside"
+},
+"46":{
+	"word": "banana",
+	"category": "all"
+},
+"47":{
+	"word": "apple",
+	"category": "all"
+},
+"48":{
+	"word": "sandwich",
+	"category": "all"
+},
+"49":{
+	"word": "orange",
+	"category": "all"
+},
+"50":{
+	"word": "broccoli",
+	"category": "all"
+},
+"51":{
+	"word": "carrot",
+	"category": "all"
+},
+"52":{
+	"word": "hot dog",
+	"category": "all"
+},
+"53":{
+	"word": "pizza",
+	"category": "all"
+},
+"54":{
+	"word": "donut",
+	"category": "all"
+},
+"55":{
+	"word": "cake",
+	"category": "all"
+},
+"56":{
+	"word": "chair",
+	"category": "all"
+},
+"57":{
+	"word": "couch",
+	"category": "inside"
+},
+"58":{
+	"word": "potted plant",
+	"category": "inside"
+},
+"59":{
+	"word": "bed",
+	"category": "inside"
+},
+"60":{
+	"word": "dining table",
+	"category": "inside"
+},
+"61":{
+	"word": "toilet",
+	"category": "inside"
+},
+"62":{
+	"word": "tv",
+	"category": "inside"
+},
+"63":{
+	"word": "laptop",
+	"category": "inside"
+},
+"64":{
+	"word": "mouse",
+	"category": "inside"
+},
+"65":{
+	"word": "remote",
+	"category": "inside"
+},
+"66":{
+	"word": "keyboard",
+	"category": "inside"
+},
+"67":{
+	"word": "cell phone",
+	"category": "inside"
+},
+"68":{
+	"word": "microwave",
+	"category": "inside"
+},
+"69":{
+	"word": "oven",
+	"category": "inside"
+},
+"70":{
+	"word": "toaster",
+	"category": "inside"
+},
+"71":{
+	"word": "sink",
+	"category": "inside"
+},
+"72":{
+	"word": "refrigerator",
+	"category": "inside"
+},
+"73":{
+	"word": "book",
+	"category": "all"
+},
+"74":{
+	"word": "clock",
+	"category": "all"
+},
+"75":{
+	"word": "vase",
+	"category": "all"
+},
+"76":{
+	"word": "scissors",
+	"category": "inside"
+},
+"77":{
+	"word": "teddy bear",
+	"category": "inside"
+},
+"78":{
+	"word": "hair drier",
+	"category": "inside"
+},
+"79":{
+	"word": "toothbrush",
+	"category": "inside"
+}
 }

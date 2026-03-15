@@ -8,13 +8,15 @@ public class Word {
 	
 	@Id
 	private String word;
+	private String category;
 	
 	public Word() {
 		
 	}
 	
-	public Word(String word) {
+	public Word(String word, String category) {
 		this.word = word;
+		this.category = category;
 	}
 
 	public String getWord() {
@@ -24,6 +26,13 @@ public class Word {
 	public void setWord(String word) {
 		this.word = word;
 	}
-	
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
 }
