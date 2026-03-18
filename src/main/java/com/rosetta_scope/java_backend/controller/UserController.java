@@ -38,6 +38,8 @@ public class UserController {
 		User user = userDao.findByEmail(email).get();
 		if (user.getPassword().equals(password)) {
 			response.put("response", "success");
+			// Sending user target language to put into app SharedPreferences for faster and easier access for workflows
+			response.put("target_language", user.getTargetLanguage());
 			return response;
 		}
 		else {
@@ -58,6 +60,7 @@ public class UserController {
 		
 		userDao.save(user);
 		response.put("response", "success");
+		response.put("target_language", user.getTargetLanguage());
 		return response;
 	}
 	
