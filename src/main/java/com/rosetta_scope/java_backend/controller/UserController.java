@@ -90,19 +90,13 @@ public class UserController {
 		return userDao.userExists(email);
 	}
 	
-//	@PostMapping("/user-save")
-//	@ResponseBody
-//	public User saveUser(@RequestBody User user) {
-//		if (user.getScores() != null) {
-//			for (Score score : user.getScores()) {
-//				score.setUser(user);
-//			}
-//		}
-//		
-//		userDao.save(user);
-//		// Client-side throws error in Volley if the response does not return a value, even if it is successful
-//		return user;
-//	}
+	@PostMapping("/save-progress")
+	@ResponseBody
+	public User saveUserProgress(@RequestBody User user) {
+		userDao.save(user);
+		// Client-side throws error in Volley if the response does not return a value, even if it is successful
+		return user;
+	}
 	
 	@DeleteMapping("/user-delete")
 	public void deleteUser(@RequestBody User user) {
