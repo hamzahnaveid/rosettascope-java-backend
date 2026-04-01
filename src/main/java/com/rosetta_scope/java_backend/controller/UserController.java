@@ -149,7 +149,7 @@ public class UserController {
 		
 		while (!scoreMap.isEmpty()) {
 			
-			if (knowledgeTestQuestions.size() >= 10) {
+			if (knowledgeTestQuestions.size() >= 20) {
 				break;
 			}
 			
@@ -186,6 +186,18 @@ public class UserController {
 			scoreMap.remove(proficientWord);
 		}
 		return knowledgeTestQuestions;
+	}
+	
+	@GetMapping("/pain-points/{email}")
+	@ResponseBody
+	public List<Score> getPainPoints(@PathVariable String email) {
+		User user = getUserByEmail(email);
+		Map<String, Double> scoreMap = user.getConfidenceScores();
+		List<Score> painPointsDrills = new ArrayList<Score>();
+		
+		List<Score> scoreList = scoreDao.findLowestUserScores(email);
+		
+		return scoreList;
 	}
 
 }

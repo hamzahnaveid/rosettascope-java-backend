@@ -17,5 +17,9 @@ public class ScoreDao {
 	public List<Score> findUserScoresByWord(String email, String engWord) {
 		return repo.findByEmailAndWord(email, engWord);
 	}
+	
+	public List<Score> findLowestUserScores(String email) {
+		return repo.findLowestScoresByEmail(email);
+	}
 
 }
