@@ -99,13 +99,31 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/user-delete")
-	public void deleteUser(@RequestBody User user) {
-		userDao.delete(user);
+	public HashMap<String, String> deleteUser(@RequestBody User user) {
+		HashMap<String, String> response = new HashMap<String, String>();
+		String status = "success";
+		try {
+			userDao.delete(user);
+
+		} catch(Exception e) {
+			status = "fail";
+		}
+		response.put("response", status);
+		return response;
 	}
 	
 	@DeleteMapping("/user-delete/{email}")
-	public void deleteUser(@PathVariable String email) {
-		userDao.deleteByEmail(email);
+	public HashMap<String, String> deleteUser(@PathVariable String email) {
+		HashMap<String, String> response = new HashMap<String, String>();
+		String status = "success";
+		try {
+			userDao.deleteByEmail(email);
+
+		} catch(Exception e) {
+			status = "fail";
+		}
+		response.put("response", status);
+		return response;
 	}
 	
 	@PostMapping("/add-score")
