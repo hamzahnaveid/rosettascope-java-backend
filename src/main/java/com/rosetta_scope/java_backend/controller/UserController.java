@@ -217,5 +217,24 @@ public class UserController {
 		
 		return scoreList;
 	}
+	
+	@GetMapping("/trainer/{email}/{auto}")
+	@ResponseBody
+	public Map<String, Double> getTrainingWords(@PathVariable String email, @PathVariable String auto) {
+		User user = getUserByEmail(email);
+		Map<String, Double> userMap = user.getConfidenceScores();
+		
+		if (auto.equals("true")) {
+			while (!userMap.isEmpty()) {
+				if (userMap.size() <= 5) {
+					break;
+				}
+				
+				userMap.remove(Collections.max(userMap.entrySet(), Map.Entry.comparingByValue()).getKey());
+			}
+		}
+		return userMap;
+
+	}
 
 }
