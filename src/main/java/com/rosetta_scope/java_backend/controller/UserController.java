@@ -23,6 +23,7 @@ import com.rosetta_scope.java_backend.dao.UserDao;
 import com.rosetta_scope.java_backend.entity.Score;
 import com.rosetta_scope.java_backend.entity.User;
 
+import dto.ConfidenceUpdateRequests;
 import dto.ScoreRequest;
 
 @RestController
@@ -90,10 +91,24 @@ public class UserController {
 		return userDao.userExists(email);
 	}
 	
-	@PostMapping("/save-progress")
+	@PostMapping("/update-confidence-scores")
 	@ResponseBody
-	public User saveUserProgress(@RequestBody User user) {
-		userDao.save(user);
+	public User updateConfidenceScores(@RequestBody ConfidenceUpdateRequests request) {
+		User user = userDao.findByEmail(request.getEmail()).get();
+	    Map<String, Double> map = user.getConfidenceScores();
+		
+		for (Map.Entry<String, Double> entry : request.getConfidenceScores().entrySet()) {
+	        boolean isNew = !map.containsKey(entry.getKey());
+
+	        map.put(entry.getKey(), entry.getValue());
+
+	        if (isNew) {
+	            user.setWordsEncountered(user.getWordsEncountered() + 1);
+	        }
+	    }
+
+	    userDao.save(user);
+	    
 		// Client-side throws error in Volley if the response does not return a value, even if it is successful
 		return user;
 	}
