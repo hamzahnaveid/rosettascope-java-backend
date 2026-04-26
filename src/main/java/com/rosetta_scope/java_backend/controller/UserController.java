@@ -1,5 +1,6 @@
 package com.rosetta_scope.java_backend.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,11 +9,13 @@ import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -145,6 +148,8 @@ public class UserController {
 	public User saveScore(@RequestBody ScoreRequest request) {
 		User user = userDao.findByEmail(request.getEmail()).get();
 		
+		updateStreak(user);
+		
 		Score score = new Score(
 				request.getWord(),
 				request.getLanguage(),
@@ -250,6 +255,23 @@ public class UserController {
 		}
 		return userMap;
 
+	}
+	
+	public void updateStreak(User user) {
+		LocalDate today = LocalDate.now();
+	    if (user.getLastActiveDate() == null) {
+	        user.setCurrentStreak(0);
+	    }
+
+	    else if (user.getLastActiveDate().equals(today.minusDays(1))) {
+	        user.setCurrentStreak(user.getCurrentStreak() + 1);
+	    }
+
+	    else if (!user.getLastActiveDate().equals(today)) {
+	        user.setCurrentStreak(0);
+	    }
+
+	    user.setLastActiveDate(today);
 	}
 
 }

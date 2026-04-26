@@ -1,5 +1,6 @@
 package com.rosetta_scope.java_backend.entity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +40,9 @@ public class User {
 	@Column(name="confidence")
 	@CollectionTable(name="user_confidence_scores", joinColumns= @JoinColumn(name="email"))
 	private Map<String, Double> confidenceScores;
+	
+	private int currentStreak;
+	private LocalDate lastActiveDate;
 	
 	public User() {
 		
@@ -114,6 +118,22 @@ public class User {
 
 	public void setConfidenceScores(Map<String, Double> confidenceScores) {
 		this.confidenceScores = confidenceScores;
+	}
+
+	public int getCurrentStreak() {
+		return currentStreak;
+	}
+
+	public void setCurrentStreak(int currentStreak) {
+		this.currentStreak = currentStreak;
+	}
+
+	public LocalDate getLastActiveDate() {
+		return lastActiveDate;
+	}
+
+	public void setLastActiveDate(LocalDate lastActiveDate) {
+		this.lastActiveDate = lastActiveDate;
 	}
 
 }
