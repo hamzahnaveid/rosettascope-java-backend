@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -144,6 +145,31 @@ public class UserController {
 		return response;
 	}
 	
+	@PutMapping("/update-language/{email}")
+	public ResponseEntity<?> updateLanguage(@PathVariable String email, @RequestParam String newTargetLanguage) {
+		User user = userDao.findByEmail(email).get();
+		
+		user.setTargetLanguage(newTargetLanguage);
+		user.setWordsEncountered(0);
+		user.setWordsMastered(0);
+		
+		Set<String> discoveredWords = user.getConfidenceScores().keySet();
+		
+		for (String word : discoveredWords) {
+			if (word.contains(newTargetLanguage)) {
+				user.setWordsEncountered(user.getWordsEncountered() + 1);
+				
+				if (user.getConfidenceScores().get(word) > 0.95) {
+					user.setWordsMastered(user.getWordsMastered() + 1);
+				}
+			}
+		}
+		
+		userDao.save(user);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(user);
+	}
+	
 	@PostMapping("/add-score")
 	public User saveScore(@RequestBody ScoreRequest request) {
 		User user = userDao.findByEmail(request.getEmail()).get();
@@ -162,7 +188,9 @@ public class UserController {
 		score.setUser(user);
 		user.addScore(score);
 		
-		if (!user.getConfidenceScores().containsKey(request.getEngWord())) {
+		String engWordTargetLanguage = request.getEngWord() + "/" + user.getTargetLanguage();
+		
+		if (!user.getConfidenceScores().containsKey(engWordTargetLanguage)) {
 			user.setWordsEncountered(user.getWordsEncountered() + 1);
 		}
 		
@@ -170,7 +198,7 @@ public class UserController {
 			user.setWordsMastered(user.getWordsMastered() + 1);
 		}
 		
-		user.getConfidenceScores().put(request.getEngWord(), request.getConfidenceScore());
+		user.getConfidenceScores().put(engWordTargetLanguage, request.getConfidenceScore());
 		
 		userDao.save(user);
 		
@@ -185,16 +213,29 @@ public class UserController {
 		Map<String, Double> scoreMap = user.getConfidenceScores();
 		List<Score> knowledgeTestQuestions = new ArrayList<Score>();
 		
-		while (!scoreMap.isEmpty()) {
+		// filtering map according to user's current target language
+		Map<String, Double> userMapOfLanguage = new HashMap<String, Double>();
+		for (Map.Entry<String, Double> entry : scoreMap.entrySet()) {
+			if (entry.getKey().contains(user.getTargetLanguage())) {
+				userMapOfLanguage.put(entry.getKey(), entry.getValue());
+			}
+		}
+		
+		
+		while (!userMapOfLanguage.isEmpty()) {
 			
 			if (knowledgeTestQuestions.size() >= 20) {
 				break;
 			}
 			
-			String proficientWord = Collections.max(scoreMap.entrySet(), Map.Entry.comparingByValue()).getKey();
-			List<Score> scoreList = scoreDao.findUserScoresByWord(email, proficientWord);
+			String proficientWord = Collections.max(userMapOfLanguage.entrySet(), Map.Entry.comparingByValue()).getKey();
+			String regexWord = proficientWord.replace("/" + user.getTargetLanguage(), "");
+			List<Score> scoreList = scoreDao.findUserScoresByWordAndLanguage(email, regexWord, user.getTargetLanguage());
 			
+			
+			// Get last entry in list of Scores
 			knowledgeTestQuestions.add(scoreList.get(scoreList.size()-1));
+			
 			// Get random entry in list of Scores excluding the last entry
 			if (scoreList.size() > 1) {
 				Random random = new Random();
@@ -221,19 +262,17 @@ public class UserController {
 			}
 			
 			// For getting subsequent most proficient words on next iterations of loop
-			scoreMap.remove(proficientWord);
+			userMapOfLanguage.remove(proficientWord);
 		}
 		return knowledgeTestQuestions;
 	}
 	
 	@GetMapping("/pain-points/{email}")
 	@ResponseBody
-	public List<Score> getPainPoints(@PathVariable String email) {
-		User user = getUserByEmail(email);
-		Map<String, Double> scoreMap = user.getConfidenceScores();
-		List<Score> painPointsDrills = new ArrayList<Score>();
+	public List<Score> getPainPoints(@PathVariable String email) {	
+		User user = userDao.findByEmail(email).get();
 		
-		List<Score> scoreList = scoreDao.findLowestUserScores(email);
+		List<Score> scoreList = scoreDao.findLowestUserScoresByLanguage(email, user.getTargetLanguage());
 		
 		return scoreList;
 	}
@@ -244,16 +283,31 @@ public class UserController {
 		User user = getUserByEmail(email);
 		Map<String, Double> userMap = user.getConfidenceScores();
 		
+		// filtering map according to user's current target language
+		Map<String, Double> userMapOfLanguage = new HashMap<String, Double>();
+		for (Map.Entry<String, Double> entry : userMap.entrySet()) {
+			if (entry.getKey().contains(user.getTargetLanguage())) {
+				userMapOfLanguage.put(entry.getKey(), entry.getValue());
+			}
+		}
+		
 		if (auto.equals("true")) {
-			while (!userMap.isEmpty()) {
-				if (userMap.size() <= 5) {
+			while (!userMapOfLanguage.isEmpty()) {
+				if (userMapOfLanguage.size() <= 5) {
 					break;
 				}
 				
-				userMap.remove(Collections.max(userMap.entrySet(), Map.Entry.comparingByValue()).getKey());
+				userMapOfLanguage.remove(Collections.max(userMapOfLanguage.entrySet(), Map.Entry.comparingByValue()).getKey());
 			}
 		}
-		return userMap;
+		
+		Map<String, Double> cleanedMap = new HashMap<String, Double>();
+	    for (Map.Entry<String, Double> entry : userMapOfLanguage.entrySet()) {
+	        String cleanedKey = entry.getKey().replaceAll("/.*$", "");
+	        cleanedMap.put(cleanedKey, entry.getValue());
+	    }
+		
+		return cleanedMap;
 
 	}
 	

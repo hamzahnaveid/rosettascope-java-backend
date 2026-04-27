@@ -14,12 +14,12 @@ public class ScoreDao {
 	@Autowired
 	private ScoreRepository repo;
 	
-	public List<Score> findUserScoresByWord(String email, String engWord) {
-		return repo.findByEmailAndWord(email, engWord);
+	public List<Score> findUserScoresByWordAndLanguage(String email, String engWord, String targetLanguage) {
+		return repo.findByEmailAndWordAndLanguage(email, engWord, targetLanguage);
 	}
 	
-	public List<Score> findLowestUserScores(String email) {
-		return repo.findLowestScoresByEmail(email);
+	public List<Score> findLowestUserScoresByLanguage(String email, String targetLanguage) {
+		return repo.findLowestScoresByEmailAndLanguage(email, targetLanguage);
 	}
 
 }
