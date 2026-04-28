@@ -31,11 +31,13 @@ public class Score {
 	@JsonIgnore
 	private User user;
 	
+	private boolean trained;
+	
 	public Score() {
 		
 	}
 
-	public Score(String word, String language, int score, String engWord, long timestamp, String feedback) {
+	public Score(String word, String language, int score, String engWord, long timestamp, String feedback, boolean trained) {
 		super();
 		this.word = word;
 		this.language = language;
@@ -43,6 +45,11 @@ public class Score {
 		this.engWord = engWord;
 		this.timestamp = timestamp;
 		this.feedback = feedback;
+		this.trained = trained;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 	public String getWord() {
@@ -100,6 +107,14 @@ public class Score {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public boolean isTrained() {
+		return trained;
+	}
+
+	public void setTrained(boolean trained) {
+		this.trained = trained;
 	}
 
 }

@@ -182,7 +182,8 @@ public class UserController {
 				request.getScore(),
 				request.getEngWord(),
 				request.getTimestamp(),
-				request.getFeedback()
+				request.getFeedback(),
+				request.isTrained()
 		);
 		
 		score.setUser(user);
@@ -204,6 +205,16 @@ public class UserController {
 		
 		// Client-side throws error in Volley if the response does not return a value, even if it is successful
 		return user;
+	}
+	
+	@PutMapping("/update-score/{scoreId}")
+	@ResponseBody
+	public ResponseEntity<?> updateScore(@PathVariable int scoreId) {
+		Score score = scoreDao.findById(scoreId);
+		score.setTrained(true);
+		scoreDao.save(score);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(score);
 	}
 	
 	@GetMapping("/knowledgeTest/{email}")

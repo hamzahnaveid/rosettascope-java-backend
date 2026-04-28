@@ -14,6 +14,14 @@ public class ScoreDao {
 	@Autowired
 	private ScoreRepository repo;
 	
+	public void save(Score score) {
+		repo.save(score);
+	}
+	
+	public Score findById(int scoreId) {
+		return repo.getReferenceById(scoreId);
+	}
+	
 	public List<Score> findUserScoresByWordAndLanguage(String email, String engWord, String targetLanguage) {
 		return repo.findByEmailAndWordAndLanguage(email, engWord, targetLanguage);
 	}

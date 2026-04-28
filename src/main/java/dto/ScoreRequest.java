@@ -9,6 +9,7 @@ public class ScoreRequest {
     private String engWord;
     private long timestamp;
     private String feedback;
+    private boolean trained;
     private double confidenceScore;
     
     public ScoreRequest() {
@@ -69,6 +70,14 @@ public class ScoreRequest {
 
 	public void setFeedback(String feedback) {
 		this.feedback = feedback;
+	}
+
+	public boolean isTrained() {
+		return trained;
+	}
+
+	public void setTrained(boolean trained) {
+		this.trained = trained;
 	}
 
 	public double getConfidenceScore() {
