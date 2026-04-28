@@ -232,6 +232,10 @@ public class UserController {
 			String regexWord = proficientWord.replace("/" + user.getTargetLanguage(), "");
 			List<Score> scoreList = scoreDao.findUserScoresByWordAndLanguage(email, regexWord, user.getTargetLanguage());
 			
+			if (scoreList.isEmpty()) {
+				userMapOfLanguage.remove(proficientWord);
+				continue;
+			}
 			
 			// Get last entry in list of Scores
 			knowledgeTestQuestions.add(scoreList.get(scoreList.size()-1));
